@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerHP : MonoBehaviour
 {
-    [SeriallizeField]
+    [SerializeField]
     private float   maxHP=10;
     private float   currentHP;
     private SpriteRenderer  spriteRenderer;
