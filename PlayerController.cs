@@ -4,6 +4,8 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField]
+    private string      nextSceneName;
+    [SerializeField]
     private StageData   stageData;
     [SerializeField]
     private KeyCode keyCodeAttack=KeyCode.Space;
@@ -17,7 +19,6 @@ public class PlayerController : MonoBehaviour
         get => score = Mathf.Max(0, value);
         get => score;
     }
-
     private void Awake()
     {
         movement2D=GetComponent<Movement2D>();
@@ -27,9 +28,7 @@ public class PlayerController : MonoBehaviour
     {
         float x=Input.GetAxisRaw("Horizontal");
         float y=Input.GetAxisRaw("Vertical");
-
         movement2D.MoveTo(new Vector3(x,y,0));
-
         if(Input.GetKeyDown(keyCodeAttack))
         {
             weapon.StartFiring();
@@ -39,6 +38,13 @@ public class PlayerController : MonoBehaviour
             weapon.StopFiring();
         }
     }
-
-    
+     private void LateUpdate()
+    {
+        transform.position=new Vector2(Mathf.Clamp(transform.position.x,stageData.LimitMin.x,stageData.LimitMax.x),
+                                       Mathf.Clamp(transform.position.y,stageData.LimitMin.y,stageData.LimitMax.y));
+    }
+    public void OnDie()
+    {
+        SceneManager.LoadScene(nextSceneName);
+    }
 }
