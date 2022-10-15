@@ -13,10 +13,10 @@ public class PlayerController : MonoBehaviour
     private Weapon  weapon;
     
     private int         score;
-    public  int         score
+    public  int         Score
     {
         // score 음수 x
-        get => score = Mathf.Max(0, value);
+        set => score = Mathf.Max(0, value);
         get => score;
     }
     private void Awake()
