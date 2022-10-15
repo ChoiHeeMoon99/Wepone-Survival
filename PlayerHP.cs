@@ -8,11 +8,13 @@ public class PlayerHp : MonoBehaviour
     private float   maxHP=10;
     private float   currentHP;
     private SpriteRenderer  spriteRenderer;
+    private PlayerController playerController;
 
     private void Awake()
     {
         currentHP=maxHP;
         spriteRenderer=GetComponent<spriteRenderer>();
+        playerController = GetComponent<PlayerController>();
     }
 
     public void TakeDamage(float damage)
@@ -24,7 +26,8 @@ public class PlayerHp : MonoBehaviour
 
         if(currentHP<=0)
         {
-            Debug.Log("Player HP : 0..Die");
+            
+            playerController.OnDie();
         }
     }
     private IEnumerator HitColorAnimation()
