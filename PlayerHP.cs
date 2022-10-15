@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerHp : MonoBehaviour
+public class PlayerHP : MonoBehaviour
 {
     [SeriallizeField]
     private float   maxHP=10;
@@ -10,10 +10,13 @@ public class PlayerHp : MonoBehaviour
     private SpriteRenderer  spriteRenderer;
     private PlayerController playerController;
 
+    public float MaxHP => maxHP;
+    public float CurrentHP => currentHP;
+
     private void Awake()
     {
         currentHP=maxHP;
-        spriteRenderer=GetComponent<spriteRenderer>();
+        spriteRenderer=GetComponent<SpriteRenderer>();
         playerController = GetComponent<PlayerController>();
     }
 
@@ -24,9 +27,10 @@ public class PlayerHp : MonoBehaviour
         StopCoroutine("HitColorAnimation");
         StartCoroutine("HitColorAnimation");
 
+        // 체력이 0이하 = 플레이어 캐릭터 사망
         if(currentHP<=0)
         {
-            
+            //체력이 0이면 OnDie() 함수를 호출해서 죽었을 떄 처리한다
             playerController.OnDie();
         }
     }
